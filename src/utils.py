@@ -19,6 +19,8 @@ def greeting() -> str:
         return "Доброй ночи"
     elif "00:00" <= time <= "05:59":
         return "Доброй ночи"
+    else:
+        return "Доброго времени суток"
 
 
 def get_user_settings() -> dict:
@@ -28,6 +30,7 @@ def get_user_settings() -> dict:
             return user_settings
     except Exception as exc:
         print(f'Ошибка чтения данных: {exc}')
+        return {}
 
 
 def get_operations_info() -> pd.DataFrame:
@@ -45,7 +48,7 @@ def get_date_range(date_str: str, date_range: str = 'M') -> list:
     """Функция для определения промежутка дат.
     С начала месяца по выбранную дату.
     Возвращает список дат для фильтрации"""
-    start_date = None
+
     end_date = None
     try:
         date_obj = datetime.datetime.strptime(date_str, '%Y.%m.%d %H:%M:%S')
@@ -114,7 +117,7 @@ def get_total_cards_transactions(operations) -> list[dict]:
     for card in cards_list:
         json_operations_dict = {
             "last_digits": card,
-            "total_spent": round(float(total_spend["Сумма операции"][card]), 2),
+            "total_spent": abs(round(float(total_spend["Сумма операции"][card]), 2)),
             "cashback": float(total_spend["Кэшбэк"][card]),
         }
         cards_transactions_list.append(json_operations_dict)

@@ -13,7 +13,7 @@ stocks = user_settings.get("user_stocks")
 currencies = user_settings.get("user_currencies")
 
 
-def get_stocks_amount(user_stocks: list[str]) -> list[dict]:
+def get_stocks_amount(user_stocks: list[str]) -> list:
     """Выяснить стоимость акций.
     На вход получает список из функции get_user_stocks()"""
     stock_amount = []

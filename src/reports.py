@@ -5,8 +5,7 @@ from typing import Optional
 import pandas as pd
 from dateutil.relativedelta import relativedelta
 
-from src.decorators import logg
-from src.utils import filter_operations_by_dates, get_operations_info
+from src.utils import filter_operations_by_dates
 
 
 def spending_by_category(transactions: pd.DataFrame,
@@ -16,7 +15,7 @@ def spending_by_category(transactions: pd.DataFrame,
     Принимает датафрейм и категорию для фильтрации.
     Дополнительный параметр date должен быть в формате %Y.%m.%d %H:%M:%S"""
     try:
-        if date == None:
+        if not date:
             date = datetime.datetime.now().strftime('%Y.%m.%d %H:%M:%S')
             date_obj = datetime.datetime.strptime(date, '%Y.%m.%d %H:%M:%S')
             start_date = date_obj.strftime('%Y-%m-%d')
@@ -25,7 +24,7 @@ def spending_by_category(transactions: pd.DataFrame,
             start_date = date_obj.strftime('%Y-%m-%d')
     except Exception as exc:
         print(f'Ошибка: {exc}')
-        return []
+        return pd.DataFrame()
 
     end_date = (date_obj - relativedelta(months=3)).strftime('%Y-%m-%d')
     dates_list = [start_date, end_date]

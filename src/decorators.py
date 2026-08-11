@@ -1,10 +1,14 @@
 from functools import wraps
-from operator import index
 
 
 def logg(file_name=None):
+    """Декоратор для записи результатов работы функции.
+    Результатом должен быть датафрейм.
+    Аргумент - название файла для записи в файл.
+    Запись идет в директорию reports"""
     if file_name is None:
         file_name = 'report.txt'
+
     def wrapper(func):
         @wraps(func)
         def inner(*args, **kwargs):

@@ -1,5 +1,5 @@
-from src.decorators import logg
 from src.external_api import get_currency, get_stocks_amount
+from src.services import filter_by_words
 from src.utils import greeting, get_user_settings, get_operations_info, get_date_range, filter_operations_by_dates, \
     get_top_five_transactions, get_total_cards_transactions
 
@@ -13,7 +13,8 @@ def main_page(user_date) -> dict:
     operations_df = get_operations_info()
     dates_list = get_date_range(user_date)
     filtered_df = filter_operations_by_dates(dates_list, operations_df)
-
+    user_search = input('Введите слово для фильтрации операций\n')
+    print(filter_by_words(filtered_df, user_search))
     json_answer = {
         "greeting": greeting(),
         "cards": get_total_cards_transactions(filtered_df),
