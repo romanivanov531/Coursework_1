@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def filter_by_words(operations: pd.DataFrame, search: str):
-    """Функция для фильтрации дфтафрейма по ключевому слову.
+    """Функция для фильтрации датафрейма по ключевому слову.
     Возвращает операции в формате json"""
     if search is None:
         return operations
